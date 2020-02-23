@@ -60,7 +60,7 @@ function getGenerateInspectionNumberClickHandler(info, tab, houbetsuNum, prefect
     const candidates = insurances.filter(e => e.houbetsuNum !== "random");
     houbetsuNum = candidates[Math.floor(Math.random() * candidates.length)].houbetsuNum;
   }
-  chrome.tabs.sendMessage(tab.id, { houbetsuNum, prefectureCode });
+  chrome.tabs.sendMessage(tab.id, { type: "inspectionNumber", houbetsuNum, prefectureCode });
 }
 
 function getGeneratePublicInspectionNumberClickHandler(info, tab, houbetsuNum, prefectureCode) {
@@ -68,7 +68,11 @@ function getGeneratePublicInspectionNumberClickHandler(info, tab, houbetsuNum, p
     const candidates = publicInsurances.filter(e => e.houbetsuNum !== "random");
     houbetsuNum = candidates[Math.floor(Math.random() * candidates.length)].houbetsuNum;
   }
-  chrome.tabs.sendMessage(tab.id, { houbetsuNum, prefectureCode });
+  chrome.tabs.sendMessage(tab.id, { type: "inspectionNumber", houbetsuNum, prefectureCode });
+}
+
+function getRecipientNumberClickHandler(info, tab, number) {
+  chrome.tabs.sendMessage(tab.id, { type: "recipientNumber", number });
 }
 
 function randomPrefectureCode() {
@@ -122,5 +126,12 @@ publicInsurances.forEach(insurance => {
 chrome.contextMenus.create({
   id: "recipientNum",
   contexts: ["editable"],
-  title: "受給者番号の生成（ランダム）"
+  title: "受給者番号の生成（ランダム）",
+  onclick: (info, tab) => {
+    getRecipientNumberClickHandler(
+      info,
+      tab,
+      ""
+    );
+  }
 });

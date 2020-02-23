@@ -55,8 +55,15 @@ function generateRecipientNumber(num){
 }
 
 // contextMenuEvent
-chrome.runtime.onMessage.addListener(function (request) {
-  inputInspectionNumber(document.activeElement, request);
+chrome.runtime.onMessage.addListener(function(request) {
+  switch (request.type) {
+    case "inspectionNumber":
+      inputInspectionNumber(document.activeElement, request);
+      break;
+    case "recipientNumber":
+      inputRecipientNumber(document.activeElement, request);
+      break;
+  }
 });
 
 function inputInspectionNumber(elem, request) {
@@ -65,5 +72,12 @@ function inputInspectionNumber(elem, request) {
   console.log(request, generatedNumber);
   elem.value = generatedNumber;
   var event = new Event("input");
+  elem.dispatchEvent(event);
+}
+
+function inputRecipientNumber(elem, request) {
+  const generatedNumber = generateRecipientNumber(request.number);
+  elem.value = generatedNumber;
+  var event = generatedNumber;
   elem.dispatchEvent(event);
 }
