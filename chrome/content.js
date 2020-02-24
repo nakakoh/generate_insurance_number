@@ -67,9 +67,7 @@ chrome.runtime.onMessage.addListener(function(request) {
 });
 
 function inputInspectionNumber(elem, request) {
-  console.log(request);
   const generatedNumber = generateInspectionNumber(request.houbetsuNum, request.prefectureCode);
-  console.log(request, generatedNumber);
   elem.value = generatedNumber;
   var event = new Event("input");
   elem.dispatchEvent(event);
@@ -79,5 +77,6 @@ function inputRecipientNumber(elem, request) {
   const generatedNumber = generateRecipientNumber(request.number);
   elem.value = generatedNumber;
   var event = generatedNumber;
+  var event = new Event("input");
   elem.dispatchEvent(event);
 }
