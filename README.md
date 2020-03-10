@@ -24,5 +24,5 @@ select distinct hbtnum, '{ houbetsuNum: "' || hbtnum || '", name: "[' || hbtnum 
 ```
 
 ### 参考
-- https://github.com/miyucy/miyucy.github.io
+- https://github.com/miyucy/miyucy.github.io (thanks to @miyucy !)
 - https://www.mhlw.go.jp/topics/2008/03/dl/tp0305-1az_0004.pdf
